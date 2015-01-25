@@ -1,0 +1,106 @@
+{% extends 'main.html' %} <!-- этот шаблон наследуется от main.html -->
+{% load staticfiles %} <!-- для работы со статичными файлами -->
+
+{% block task %}
+<div class="row">
+	<div class="small-3 columns" style="border: 3px solid grey; padding: 40px; height:596px; background:#BBBBBB; text-align:center;">Users, search etc.</div>
+	<div class="small-9 columns" style="border: 3px solid grey; padding: 40px; background:#F2F1F0">
+		<h3>{{ task.task_name }}</h3>
+		<table border="0" width="100%" class="table">
+			<tr>
+				<td>
+					<h2 style="color:#525254"> {{ task.named }} </h2>
+				</td>
+			</tr>
+			<tr>
+				<td style="width:400px;">
+					<h4 style="width:300px; float:left"> Задачу поставил: </h4>
+					<h4 style="color:green"> {{ task.task_author }} </h4> 
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<h4 style="width:300px; float:left"> Ответственный: </h4>
+					<h4 style="color:green"> {% for u in task.task_users.all %} {{ u }} {% endfor %} </h4> 
+				</td>
+			</tr>
+		</table> 
+		<table border="0" cellspacing="1" cellpadding="1" width="100%" class="table">
+			<tr>
+				<td>
+					<h5 style="width:120px; float:left"> Task type: </h5>
+					<h5 style="color:blue"> {{ task.task_type }} </h5>
+				</td>
+				<td>
+					<h5 style="width:150px; float:left"> Start date: </h5>
+					<h5 style="color:red"> {{task.task_startdate}} </h5>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<h5 style="width:120px; float:left"> Task status: </h5>
+					<h5 style="color:blue"> {{ task.task_status }} </h5>
+				</td>
+				<td>
+					<h5 style="width:150px; float:left"> Deadline: </h5>
+					<h5 style="color:red"> {{ task.task_deadline }} </h5>
+				</td>
+			</tr>
+			<tr>
+				<td> 
+					<h5 style="width:120px; float:left"> Task priority: </h5>
+					<h5 style="color:blue"> {{ task.task_priority }} </h5>
+				</td>
+				<td>
+					<h5 style="width:150px; float:left"> Estimated time: </h5>
+					<h5 style="color:red"> {{task.task_estimatedtime}} </h5>
+				</td>
+			</tr>
+			<tr>
+				<td> 
+				</td>
+				<td>
+					<h5 style="width:150px; float:left"> Closed on: </h5>
+					<h5 style="color:red"> {{ task.task_enddate }} </h5>
+				</td>
+			</tr>
+		</table>
+		<table border="0" width="100%" class="table">
+			<h4 style="color:green"> Подробное описание задачи: </h4>
+			<tr>
+				<td>
+				<h5> {{ task.task_description }} <h5>
+				</td>
+			</tr>
+		</table>
+		<h4 style="color:green; float:left;"> Коментарии к задаче:</h4>
+		</br>
+		{% for comment in comments %}
+			<table border="0" width="100%" class="table">
+				<tr>
+					<td>
+						<div style="float:left;"> {{comment.comments_user}} </div> 
+						<div style="text-align:right; color:blue;"> {{comment.comments_date}} </div>
+					</td>
+				</tr>
+				<tr>
+					<td>{{comment.comments_text }}</td>
+				</tr>
+			</table>
+		{% endfor %}
+		<br/>
+		
+		{% if username %}  <!-- только если пользователь авторизирован, отображать форму добавления комментов -->
+			<form action="/tasks/addcomment/{{ task.id }}/" method="post"> 
+			<!-- method="post" безопасен, т.к. не отображает запрос в строке браузера -->
+			{% csrf_token %} <!-- защита - token, передаётся после тега form-->
+			{{ form }} <!-- переменная -->
+			<input type="submit" class="button info radius tiny" value="Добавить комментарий">
+			</form>
+		{% else %} 
+			<hr> 
+			<h6><a href="/auth/login/">Авторизируйтесь</a>, чтобы оставлять комментарии</h6> 
+	 	{% endif %}
+	</div>
+</div>
+{% endblock %}

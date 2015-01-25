@@ -1,0 +1,27 @@
+{% extends 'main.html' %} <!-- этот шаблон наследуется от main.html -->
+{% load staticfiles %} <!-- для работы со статичными файлами -->
+
+{% block addtask %}
+<div class="large-10 columns">
+	<h4> {{ task.task_users }} </h4></br>
+	<h2> {{ task.task_name }} </h2></br>
+	<h2> {{ task.task_author }} </h2></br>
+	<h2> {{ task.task_description }} </h2></br>
+	<h2> {{ task.task_type }} </h2></br>
+	<h2> {{ task.task_status }} </h2></br>
+	<h2> {{ task.task_priority }} </h2></br>
+	
+	</div>
+	{% if username %}  <!-- только если пользователь авторизирован, отображать форму добавления комментов -->
+		<form action="/tasks/addtask/" method="post"> 
+		<!-- method="post" безопасен, т.к. не отображает запрос в строке браузера -->
+		{% csrf_token %} <!-- защита - token, передаётся после тега form-->
+		{{ form1 }} <!-- переменная -->
+		<input type="submit" class="button info radius tiny" value="Добавить">
+		</form>
+	{% else %} 
+		<hr> 
+		<h5><a href="/auth/login/">Авторизируйтесь</a>, чтобы оставлять комментарии</h5> 
+ 	{% endif %}
+</div>
+{% endblock %}

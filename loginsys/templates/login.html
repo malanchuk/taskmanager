@@ -1,0 +1,17 @@
+{% extends 'main.html' %}
+<!-- -->
+{% block login %} 
+<div class="large-offset-3 large-6 columns" style="border: 3px solid grey; padding: 20px 30px 0 30px; background:#F2F1F0; margin-bottom:202px;">
+	<form action="/auth/login/" method="post">  <!-- форма, которая отправляет данные в "/auth/login/" методом post -->
+		{% csrf_token %}    <!-- защита csrf_token -->
+			<label for="username">Имя пользователя</label>
+			<input type="text" name="username" id="username">  <!-- поле ввода типа текст для username -->
+			<label for="password">Пароль</label>
+			<input type="password" name="password" id="password">  <!-- поле ввода типа password (символы в ввиде ****) -->
+		{% if login_error %}          <!-- переменная, которая передаётся после авторизации в случае наличия ошибок -->
+		 	<label class="error">{{ login_error }}</label>    <!-- отобразит login_error, если есть ошибки -->
+		{% endif %}
+			 <input class="button tiny radius info" type="submit" value="Войти">  <!-- кнопка "Войти", которая будет отправлять наши данные по адресу /auth/login/ -->
+			 <a href="/auth/register/"><div class="button tiny radius secondary">Регистрация</div></a>
+</div>
+{% endblock %}
