@@ -6,7 +6,7 @@ class CommentForm(ModelForm):
 	class Meta:
 		model = Comment
 		fields = [
-				 'comments_user', 
+				 'comments_user',				 
 				 'comments_text'
 				 ] # перечисление отображаемых полей
 

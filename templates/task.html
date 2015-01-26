@@ -33,7 +33,7 @@
 				</td>
 				<td>
 					<h5 style="width:150px; float:left"> Start date: </h5>
-					<h5 style="color:red"> {{task.task_startdate}} </h5>
+					<h5 style="color:red"> {{ task.task_startdate }} </h5>
 				</td>
 			</tr>
 			<tr>
@@ -53,7 +53,7 @@
 				</td>
 				<td>
 					<h5 style="width:150px; float:left"> Estimated time: </h5>
-					<h5 style="color:red"> {{task.task_estimatedtime}} </h5>
+					<h5 style="color:red"> {{ task.task_estimatedtime }} </h5>
 				</td>
 			</tr>
 			<tr>
@@ -79,19 +79,19 @@
 			<table border="0" width="100%" class="table">
 				<tr>
 					<td>
-						<div style="float:left;"> {{comment.comments_user}} </div> 
-						<div style="text-align:right; color:blue;"> {{comment.comments_date}} </div>
+						<div style="float:left;"> {{ comment.comments_user }} </div> 
+						<div style="text-align:right; color:blue;"> {{ comment.comments_date }} </div>
 					</td>
 				</tr>
 				<tr>
-					<td>{{comment.comments_text }}</td>
+					<td>{{ comment.comments_text }}</td>
 				</tr>
 			</table>
 		{% endfor %}
 		<br/>
 		
 		{% if username %}  <!-- только если пользователь авторизирован, отображать форму добавления комментов -->
-			<form action="/tasks/addcomment/{{ task.id }}/" method="post"> 
+			<form action="{% url 'addcomment' task.id %}" method="post"> 
 			<!-- method="post" безопасен, т.к. не отображает запрос в строке браузера -->
 			{% csrf_token %} <!-- защита - token, передаётся после тега form-->
 			{{ form }} <!-- переменная -->

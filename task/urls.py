@@ -3,10 +3,10 @@
 from django.conf.urls import patterns, include, url
 
 urlpatterns = patterns('',
-	url(r'^tasks/all/$', 'task.views.tasks'),
-	url(r'^tasks/get/(?P<task_id>\d+)/$', 'task.views.task'),
-    url(r'^tasks/addcomment/(?P<task_id>\d+)/$', 'task.views.addcomment'),
-    url(r'^page/(\d+)/$', 'task.views.tasks'),    
+    url(r'^tasks/get/(?P<task_id>\d+)/$', 'task.views.task', name='task detail'),
+    url(r'^tasks/addcomment/(?P<task_id>\d+)/$', 'task.views.addcomment', name='addcomment'),
+    url(r'^page/(\d+)/$', 'task.views.tasks', name='pagination'),    
     url(r'^$', 'task.views.tasks'),
+    url(r'^ckeditor/', include('ckeditor.urls')),
 )
 

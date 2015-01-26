@@ -28,7 +28,6 @@ ALLOWED_HOSTS = []
 
 TEMPLATE_DIRS = (
     '/home/maxim/taskmanager/templates',
-    '/home/maxim/taskmanager/task/templates',
     '/home/maxim/taskmanager/loginsys/templates',
 )
 
@@ -43,6 +42,8 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'task',
     'loginsys',
+    'ckeditor',
+    'pagedown',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -79,7 +80,7 @@ DATABASES = {
 
 LANGUAGE_CODE = 'ru-RU'
 
-TIME_ZONE = '+02:00'
+TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
@@ -91,10 +92,31 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
+STATIC_ROOT = '/static/'
+
 STATIC_URL = '/static/'
 
 MEDIA_ROOT = '/home/maxim/taskmanager/media'
 
+MEDIA_URL = 'http://127.0.0.1/media/'
+
 STATICFILES_DIRS = (
     ('static', '/home/maxim/taskmanager/static'),
 )
+
+CKEDITOR_UPLOAD_PATH = '/home/maxim/taskmanager/ckeditor'
+
+PAGEDOWN_UPLOAD_PATH = '/home/maxim/taskmanager/pagedown'
+
+CKEDITOR_JQUERY_URL = '//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+        'height': 300,
+        'width': 800,
+    },
+}
+
+
+

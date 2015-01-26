@@ -18,16 +18,20 @@ class TaskAdmin(admin.ModelAdmin):
 				    'task_status', 
 				    'task_priority'
 				   ]
-    ordering = ['task_startdate']
+    list_filter = ['task_status']
+    search_fields = ['task_name', 'task_description']
+
 
 class CommentAdmin(admin.ModelAdmin):
 	list_display = [
-					'comments_user', 
-					'comments_task', 
+					'comments_task',
+					'comments_user',					 
 					'comments_text', 
 					'comments_date'
 				   ]	
-	ordering = ['comments_task']
+	list_filter = ['comments_task'] # фильтр по полю comments_task
+	search_fields = ['comments_text']
+
 
 class ProfileAdmin(admin.ModelAdmin):
 	list_display = [
@@ -35,7 +39,7 @@ class ProfileAdmin(admin.ModelAdmin):
 					'job_title', 
 					'avatar'
 				   ]
-	ordering = ['job_title']
+	list_filter = ['job_title'] # фильтр по полю job_title
 
 admin.site.register(Task, TaskAdmin)
 admin.site.register(Comment, CommentAdmin)

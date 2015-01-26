@@ -5,19 +5,19 @@
 <div class="row">
 	<div class="small-3 columns" style="border: 3px solid grey; padding: 40px; height:596px; background:#BBBBBB; text-align:center;">Users, search etc.</div>
 	<div class="small-9 columns" style="border: 3px solid grey; padding: 40px; background:#F2F1F0">
-		{% for task in tasks %}
+		{% for task in tasks %}		
 			<table style="border: 0px solid black; width:100%;">
 			    <tr>
 			        <td>
 						<h6 style="float:left"> Date: {{ task.task_startdate }}</h6>
 						<h6 style="text-align:right; color:#6B7581">{{ task.task_status }}</h6>
 						<h4><a href="/tasks/get/{{ task.id }}/"> {{ task.task_name }} </a></h4>
-						{{ task.task_description }}
+						{{ task.task_description|safe }}
 					</td>
 			    </tr>
 			    <tr>
-			        <td>
-				        <h6 style="text-align:right;"><a href="/tasks/get/{{ task.id }}/">(Подробнее...)</a></h6>
+			        <td>			        	
+				        <h6 style="text-align:right;"><a href="{% url 'task detail' task.id %}">(Подробнее...)</a></h6>
 					</td>
 			    </tr>
 			</table>
@@ -48,7 +48,7 @@
 					<!-- нумерация страниц (конец) -->
 
 					{% if tasks.has_next %}
-						<li class="arrow"><a href="/page/{{ tasks.next_page_number }}/">&raquo;</a></li>
+						<li class="arrow"><a href="{% url 'pagination' tasks.next_page_number %}">&raquo;</a></li>
 					{% else %}
 						<li class="arrow unavailable"><a href="">&raquo;</a></li>
 					{% endif %}

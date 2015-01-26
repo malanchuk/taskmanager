@@ -2,6 +2,7 @@
 from django.db import models
 from django import forms
 from django.contrib.auth.models import User
+from ckeditor.fields import RichTextField
 
 
 TASK = 'Task'
@@ -49,7 +50,7 @@ class Task(models.Model):
 	task_users = models.ManyToManyField(User, related_name='user')
 	task_author = models.ForeignKey(User, related_name='user1')    
 	task_name = models.CharField(max_length=255)
-	task_description = models.TextField(verbose_name="Подробное описание задачи")
+	task_description = RichTextField()
 	task_deadline = models.DateField(u'Deadline', blank=True, null=True)
 	task_startdate = models.DateField(u'Start date', blank=True, null=True)
 	task_enddate = models.DateField(u'End date', blank=True, null=True)
