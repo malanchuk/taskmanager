@@ -26,6 +26,10 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
+TEMPLATE_DIRS = (
+    BASE_DIR + '/taskmanager/templates',
+)
+
 
 # Application definition
 
@@ -62,7 +66,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'taskmanager',
 	'USER': 'vitaliy',
-	'PASSWORD': '04472300u',
+	'PASSWORD': 'loki101',
     }
 }
 

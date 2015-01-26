@@ -1,0 +1,32 @@
+{% extends 'main.html' %}
+{% load staticfiles %} <!-- для работы со статичными файлами -->
+
+{% block task %}
+<div class="row">
+	
+	<div class="small-9 columns" style="border: 3px solid grey; padding: 40px; background:#F2F1F0">
+		{% for task in tasks %}		
+			<table style="border: 0px solid black; width:100%;">
+			    <tr>
+			        <td>
+						<h6 style="float:left"> Date: {{ task.start_date }}</h6>
+						<h6 style="text-align:right; color:#6B7581">{{ task.task_status }}</h6>
+						<h2><a href="/tasks/get/{{ task.id }}/"> {{ task.name }} </a></h2>
+						{{ task.description }}
+					</td>
+					<tr>
+						<td>
+							<h4 style="text-align:right;"><a href="{% url 'task detail' task.id %}">(Подробнее...)</a></h4>
+						</td>
+					</tr>		
+
+			   
+			</table>
+			<hr>
+		{% endfor %}
+	
+		
+
+	</div>
+</div>
+{% endblock %}

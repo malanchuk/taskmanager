@@ -1,0 +1,35 @@
+{% extends 'main.html' %}
+
+{% load staticfiles %}
+
+{% block task %}
+
+<p>name {{ task.name }}</p>
+<p>avtor {{ task.author }}</p>
+<p>deadline{{ task.deadline }}</p>
+<p>startdate{{ task.start_date }}</p>
+
+
+{% for comment in comments %}
+			<table border="0" width="100%" class="table">
+				<tr>
+					<td>
+						<div style="float:left;"> {{ comment.user }} </div> 
+						<div style="text-align:right; color:blue;"> {{ comment.Date }} </div>
+					</td>
+				</tr>
+				<tr>
+					<td>{{ comment.comment }}</td>
+				</tr>
+			</table>
+			<hr>
+		{% endfor %}
+
+
+<form action="/tasks/addcomment/{{ task.id }}/" method="post">
+{% csrf_token %}
+{{ form }}
+<input type="submit" class="button" value="AddComment">
+</form>
+{% endblock %}
+

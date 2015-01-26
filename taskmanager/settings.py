@@ -26,6 +26,11 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
+TEMPLATE_DIRS = (
+    BASE_DIR + '/templates',
+    '/taskmanager/loginsys/templates'
+)
+
 
 # Application definition
 
@@ -37,6 +42,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'tasks',
+    'loginsys'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -63,6 +69,8 @@ DATABASES = {
         'NAME': 'taskmanager',
 	'USER': 'vitaliy',
 	'PASSWORD': 'loki101',
+        "OPTIONS": {"init_command": "SET foreign_key_checks = 0;"
+	} 
     }
 }
 
