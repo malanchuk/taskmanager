@@ -3,7 +3,15 @@
 
 {% block task %}
 <div class="row">
-	<div class="small-3 columns" style="border: 3px solid grey; padding: 40px; height:596px; background:#BBBBBB; text-align:center;">Users, search etc.</div>
+	<div class="small-3 columns" style="border: 3px solid grey; padding: 40px; background:#BBBBBB; text-align:center;">Users, search etc.
+		<hr>
+		{% for profile in all_profiles %}	
+		<img src="{{ profile.avatar.url }}">
+		<h5><a href="">{{ profile.user }}</a></h5>		
+		{{ profile.job_title }}
+		<hr>
+		{% endfor %}	
+	</div>
 	<div class="small-9 columns" style="border: 3px solid grey; padding: 40px; background:#F2F1F0">
 		<h3>{{ task.task_name }}</h3>
 		<table border="0" width="100%" class="table">
@@ -69,7 +77,7 @@
 			<h4 style="color:green"> Подробное описание задачи: </h4>
 			<tr>
 				<td>
-				<h5> {{ task.task_description }} <h5>
+				<h5> {{ task.task_description|safe }} <h5>
 				</td>
 			</tr>
 		</table>

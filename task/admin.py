@@ -16,7 +16,7 @@ class TaskAdmin(admin.ModelAdmin):
 				    'task_estimatedtime', 
 				    'task_type', 
 				    'task_status', 
-				    'task_priority'
+				    'task_priority',				    
 				   ]
     list_filter = ['task_status']
     search_fields = ['task_name', 'task_description']

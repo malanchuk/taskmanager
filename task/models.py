@@ -3,7 +3,7 @@ from django.db import models
 from django import forms
 from django.contrib.auth.models import User
 from ckeditor.fields import RichTextField
-
+from datetime import datetime
 
 TASK = 'Task'
 ERROR = 'Error'
@@ -51,10 +51,11 @@ class Task(models.Model):
 	task_author = models.ForeignKey(User, related_name='user1')    
 	task_name = models.CharField(max_length=255)
 	task_description = RichTextField()
-	task_deadline = models.DateField(u'Deadline', blank=True, null=True)
-	task_startdate = models.DateField(u'Start date', blank=True, null=True)
-	task_enddate = models.DateField(u'End date', blank=True, null=True)
-	task_estimatedtime = models.DateField(u'Estimated time', blank=True, null=True)
+	task_deadline = models.DateTimeField(u'Deadline', blank=True, null=True)
+	task_startdate = models.DateTimeField(u'Start date', auto_now=True)
+	task_enddate = models.DateTimeField(u'End date', blank=True, null=True)
+	task_estimatedtime = models.DateTimeField(u'Estimated time', blank=True, null=True)
+  # task_pubdate = models.DateTimeField(u'Published date', auto_now=True)
 	task_type = models.CharField(max_length=10,
 	                             choices=TASK_TYPE_CHOICES,
 	                             default=TASK)

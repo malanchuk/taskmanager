@@ -3,16 +3,26 @@
 
 {% block task %}
 <div class="row">
-	<div class="small-3 columns" style="border: 3px solid grey; padding: 40px; height:596px; background:#BBBBBB; text-align:center;">Users, search etc.</div>
+	<div class="small-3 columns" style="border: 3px solid grey; padding: 40px; background:#BBBBBB; text-align:center;">Users, search etc.
+		<hr>
+		{% for profile in all_profiles %}	
+		<img src="{{ profile.avatar.url }}">
+		{{ profile.user }}
+		{{ profile.job_title }}
+		<hr>
+		{% endfor %}
+	</div>
 	<div class="small-9 columns" style="border: 3px solid grey; padding: 40px; background:#F2F1F0">
 		{% for task in tasks %}		
 			<table style="border: 0px solid black; width:100%;">
 			    <tr>
-			        <td>
-						<h6 style="float:left"> Date: {{ task.task_startdate }}</h6>
-						<h6 style="text-align:right; color:#6B7581">{{ task.task_status }}</h6>
-						<h4><a href="/tasks/get/{{ task.id }}/"> {{ task.task_name }} </a></h4>
-						{{ task.task_description|safe }}
+			        <td> 
+						<div style="float:left;">Ответственный:</div>
+						<div style="text-align:right;">{{ task.task_startdate }}</div>
+						<div style="float:left;"><h4 style="color:green; float:left;"> {% for u in task.task_users.all %} {{ u }} {% endfor %} </h4></div>
+						<div style="text-align:right;"><h6 style="color:#6B7581">{{ task.task_status }}</h6></div>
+						</br>
+						<div><h4><a href="/tasks/get/{{ task.id }}/">{{ task.task_name }}</a></h4></div>
 					</td>
 			    </tr>
 			    <tr>

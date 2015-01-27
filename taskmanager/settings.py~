@@ -43,7 +43,7 @@ INSTALLED_APPS = (
     'task',
     'loginsys',
     'ckeditor',
-    'pagedown',
+  
 )
 
 MIDDLEWARE_CLASSES = (
@@ -80,7 +80,7 @@ DATABASES = {
 
 LANGUAGE_CODE = 'ru-RU'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Kiev'
 
 USE_I18N = True
 
@@ -98,7 +98,7 @@ STATIC_URL = '/static/'
 
 MEDIA_ROOT = '/home/maxim/taskmanager/media'
 
-MEDIA_URL = 'http://127.0.0.1/media/'
+MEDIA_URL = 'http://127.0.0.1:8000/media/'
 
 STATICFILES_DIRS = (
     ('static', '/home/maxim/taskmanager/static'),
@@ -106,7 +106,7 @@ STATICFILES_DIRS = (
 
 CKEDITOR_UPLOAD_PATH = '/home/maxim/taskmanager/ckeditor'
 
-PAGEDOWN_UPLOAD_PATH = '/home/maxim/taskmanager/pagedown'
+
 
 CKEDITOR_JQUERY_URL = '//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'
 
