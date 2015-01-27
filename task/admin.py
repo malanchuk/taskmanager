@@ -10,7 +10,7 @@ class TaskAdmin(admin.ModelAdmin):
 				    'task_name', 
 				    'task_startdate',
 				    'task_description',
-				    'task_author',				     
+				    'task_author',			     
 				    'task_deadline', 				     
 				    'task_enddate', 
 				    'task_estimatedtime', 

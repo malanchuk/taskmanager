@@ -7,12 +7,26 @@
 		<hr>
 		{% for profile in all_profiles %}	
 		<img src="{{ profile.avatar.url }}">
-		{{ profile.user }}
+		<h5><a href="">{{ profile.user }}</a></h5>  
 		{{ profile.job_title }}
 		<hr>
-		{% endfor %}
+		{% endfor %}	
 	</div>
 	<div class="small-9 columns" style="border: 3px solid grey; padding: 40px; background:#F2F1F0">
+		<table width="100%">
+			<tr style="text-align:center;">
+				<td style="background:#C9DAF8; width:20%;">Сортировать по:				
+				</td>
+				<td style="text-align:center; background:#F2F1F0; width:20%;"><a href="">Статусу ⇳</a>				
+				</td>
+				<td style="text-align:center; background:#F2F1F0; width:20%;"><a href="">Приоритету ⇳</a>				
+				</td>
+				<td style="text-align:center; background:#F2F1F0; width:20%;"><a href="">Дедлайну ⇳</a>				
+				</td>	
+				<td style="text-align:center; background:#F2F1F0; width:20%;"><a href="">Типу ⇳</a>				
+				</td>			
+			</tr>
+		</table>		
 		{% for task in tasks %}		
 			<table style="border: 0px solid black; width:100%;">
 			    <tr>
@@ -63,11 +77,13 @@
 						<li class="arrow unavailable"><a href="">&raquo;</a></li>
 					{% endif %}
 				</ul>
+			
 			</div>
 		</div>
 
-		<!-- Окончание блока пагинации -->
-
-	</div>
+		<!-- Окончание блока пагинации -->	
+		
+	</div>	
 </div>
+<a href="" style="float:left; padding-bottom:-50px; color:#F2F1F0;">Вверх ▲</a>
 {% endblock %}

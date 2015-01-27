@@ -16,7 +16,7 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
 
 def tasks(request, page_number=1):                        # дефолтное значение page_number=1
-    all_tasks = Task.objects.all()   
+    all_tasks = Task.objects.order_by('-task_startdate').all()   
                         # переменной all_articles передаём все статьи(но Джанго будет обрабатывать и вызывать их не все сразу, а только то количество, которое запрашивает Пагинатор, чтобы не нагружать базу)
     current_page = Paginator(all_tasks, 10)               # Модуль Paginator принимает all_articles. Создаём модель пагинации - базовая страница current_page будет содержать 2 статьи
   # order = Task.objects.order_by(‘-task_startdate’)[:5]
@@ -27,6 +27,7 @@ def tasks(request, page_number=1):                        # дефолтное �
         'all_users': User.objects.all(),
         'all_profiles': Profile.objects.all(),
         })
+
 # ((в шаблон передаётся articles.html, все статьи (Article.objects.all()), имя пользователя)) ЗАМЕНЕНО НА:
 # 'articles': current_page.page(page_number) - передаём current_page, page(page_number) -номер страницы
 # 'username': auth.get_user(request) - получить пользователя(get_user) и все его данные из request, и если он получен, то этот пользователь присваивается к переменной username
@@ -42,7 +43,6 @@ def task(request, task_id=1):
     args['form'] = comment_form                           # создаём форму для передачи в шаблон
     args['username'] = auth.get_user(request).username    # получить имя пользователя username из request, и если оно получено, то это имя присваивается к переменной username
     args['all_profiles'] = Profile.objects.all()
-    args['all_profiles'] = Profile.objects.all()
     return render_to_response('task.html', args)          # в шаблон передаётся article.html и все ед=лементы словаря(args)
 
 # @login_required
@@ -55,3 +55,14 @@ def addcomment(request, task_id):                         # добавление
         comment.comments_user = request.user  
         form.save()
     return redirect('/tasks/get/%s' % task_id) 
+
+"""
+def user_tasks_list(request, user_id):
+    args = {}                                             # создание нового пустого словаря
+    args.update(csrf(request)) 
+    args['all_users'] = User.objects.get(id=user_id)                           # создаёт проверку вводимого текста в форму(защита) и добавляет ее в словарь
+    args['tasks'] = Task.objects.filter(task_users=user_id) 
+    args['all_profiles'] = Profile.objects.all()
+    
+    return render_to_response('user.html', args)    
+"""

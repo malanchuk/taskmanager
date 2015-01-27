@@ -3,6 +3,7 @@
 
 {% block task %}
 <div class="row">
+
 	<div class="small-3 columns" style="border: 3px solid grey; padding: 40px; background:#BBBBBB; text-align:center;">Users, search etc.
 		<hr>
 		{% for profile in all_profiles %}	
@@ -12,14 +13,16 @@
 		<hr>
 		{% endfor %}	
 	</div>
+
 	<div class="small-9 columns" style="border: 3px solid grey; padding: 40px; background:#F2F1F0">
-		<h3>{{ task.task_name }}</h3>
 		<table border="0" width="100%" class="table">
 			<tr>
 				<td>
-					<h2 style="color:#525254"> {{ task.named }} </h2>
+					<h3><b>{{ task.task_name }}</b></h3>
 				</td>
 			</tr>
+		</table>	
+		<table border="0" width="100%" class="table">
 			<tr>
 				<td style="width:400px;">
 					<h4 style="width:300px; float:left"> Задачу поставил: </h4>
@@ -110,5 +113,7 @@
 			<h6><a href="/auth/login/">Авторизируйтесь</a>, чтобы оставлять комментарии</h6> 
 	 	{% endif %}
 	</div>
+	
 </div>
+<a href="" style="float:left; margin-top:15px; color:#F2F1F0">Вверх ▲</a>
 {% endblock %}
