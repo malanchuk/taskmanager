@@ -3,30 +3,66 @@
 
 {% block task %}
 <div class="row">
+	<div class="small-3 columns" style="border: 2px solid grey; margin-top: 50px; margin-bottom: 50px; padding: 40px; background:#F2F1F0;">
+  		<hr>
+		{% for UserProfile in all_profiles %}	
+		<img src="{{ UserProfile.avatar.url }}"/>
+		<h5><a href="">{{ UserProfile.user }}</a></h5>		
+		<h5>{{ UserProfile.job_title }}</h5>	
+		<a href="/task/add/"><div class="button tiny radius info">Добавить задачу</div></a>
+		<hr>
+		{% endfor %}	
+	</div>
+
+	<div class="small-1 columns" style="border: 0px; padding: 40px;"></div>
+
 	
-	<div class="small-9 columns" style="border: 3px solid grey; padding: 40px; background:#F2F1F0">
+   <div class="small-8 columns" style="border: 2px solid grey; margin-top: 50px; margin-bottom: 50px; padding: 40px; background:#F2F1F0 ">
 		{% for task in tasks %}		
 			<table style="border: 0px solid black; width:100%;">
 			    <tr>
 			        <td>
-						<h6 style="float:left"> Date: {{ task.start_date }}</h6>
-						<h6 style="text-align:right; color:#6B7581">{{ task.task_status }}</h6>
-						<h2><a href="/tasks/get/{{ task.id }}/"> {{ task.name }} </a></h2>
-						{{ task.description }}
+						<h6 style="float:left"> Дата постановки задачи: {{ task.date_creatio }}</h6>
+						<h6 style="text-align:right; color:#6B7581">Статус задачи: {{ task.task_status }}</h6>
+						<h2><a href="/tasks/get/{{ task.id }}/">Название задачи: {{ task.name }} </a></h2>
+						<h3>Ответственный: {% for u in task.users.all %} {{ u }} {% endfor %} </h3>
+						<h3>Описание задачи: {{ task.description }}</h3>
 					</td>
-					<tr>
-						<td>
-							<h4 style="text-align:right;"><a href="{% url 'task detail' task.id %}">(Подробнее...)</a></h4>
-						</td>
-					</tr>		
-
-			   
+				</tr>
+				<tr>
+					<td>
+						<h6 style="text-align:right;"><a href="{% url 'task detail' task.id %}">(Подробнее...)</a></h6>
+					</td>
+				</tr>		   
 			</table>
-			<hr>
 		{% endfor %}
-	
 		
 
+
+	<div class = "row">	
+		<div class="large-6 large-offset-2 columns; pagination-centered">
+			<ul class="pagination"> 
+				{% if tasks.has_previous %}
+					<li class="arrow"><a href="/page/{{ tasks.previous_page_number }}/">&laquo;</a></li>
+				{% else %}	
+					<li class="arrow unavailable"><a href="">&laquo;</a></li>
+				{% endif %}
+						{% for page in tasks.paginator.page_range %}
+							{% if page = tasks.numder %}	
+				 				<li class="current"><a href="/page/{{ page }}/">{{ page }}</a></li>
+				 			{% else %}	
+				 				<li><a href="/page/{{ page }}/">{{ page }}</a></li> 
+				 			{% endif %}		
+						{% endfor %}
+						{% if tasks.has_next %}		
+							 <li class="arrow"><a href="/page/{{ tasks.next_page_number }}/">&raquo;</a></li> 
+						{% else %}	 	
+				  <li class="arrow unavailable"><a href="">&raquo;</a></li> 
+				  		{% endif %}
+			</ul>			
+		</div>		 
 	</div>
-</div>
+		
+</div>								
+
 {% endblock %}

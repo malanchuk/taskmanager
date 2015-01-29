@@ -46,10 +46,11 @@ class Task(models.Model):
     author = models.ForeignKey(User, related_name='user1')    
     name = models.CharField(max_length=255)
     description = models.CharField(max_length=255)
-    deadline = models.DateField(u'Deadline', auto_now=True)
-    start_date = models.DateField(u'Start date', auto_now=True)
-    end_date = models.DateField(u'End date', auto_now=True)
-    estimated_time = models.DateField(u'Estimated time', auto_now=True)
+    deadline = models.DateTimeField(u'Deadline', blank=True, null=True)
+    start_date = models.DateTimeField(u'Start date', blank=True, null=True)
+    end_date = models.DateTimeField(u'End date', blank=True, null=True)
+    date_creation = models.DateTimeField(u'Date creation', auto_now=True)
+    estimated_time = models.DateTimeField(u'Estimated time', blank=True, null=True)
     task_type = models.CharField(max_length=10,
                                  choices=TASK_TYPE_CHOICES,
                                  default=TASK)

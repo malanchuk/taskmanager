@@ -2,7 +2,7 @@ from django.contrib import admin
 from tasks.models import Task, Comment, UserProfile
 
 class TaskAdmin(admin.ModelAdmin):
-    list_display = ['name', 'task_status', 'task_priority', 'start_date', 'deadline', 'description']
+    list_display = ['name', 'task_status', 'task_priority', 'start_date', 'end_date', 'estimated_time', 'deadline', 'description']
     ordering = ['start_date']
 
 class CommentAdmin(admin.ModelAdmin):

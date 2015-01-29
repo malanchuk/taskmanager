@@ -1,0 +1,10 @@
+{% extends 'main.html' %}
+
+{% load staticfiles %}
+
+{% block task %}
+
+{{ task_form }}
+<a href="/task/add/add/"><div class="button tiny radius info">Добавить задачу</div></a>
+
+{% endblock %}

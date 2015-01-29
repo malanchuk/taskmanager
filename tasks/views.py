@@ -2,9 +2,10 @@
 from django.shortcuts import render_to_response, get_object_or_404, redirect
 from tasks.models import Task, Comment, UserProfile
 from django.template.context import RequestContext
-from forms import CommentForm
+from forms import CommentForm, TaskForm
 from django.core.context_processors import csrf
 from django.contrib import auth
+from django.core.paginator import Paginator
 # Create your views here.
 
 
@@ -25,8 +26,16 @@ from django.contrib import auth
 
 
 
-def tasks(request):                     
-    return render_to_response('tasks.html', {'tasks': Task.objects.all(), 'username':auth.get_user(request).username})
+def tasks(request, page_number=1):
+    all_tasks = Task.objects.order_by('-start_date').all()
+    current_page = Paginator(all_tasks, 1) 
+    args = {}
+    args.update(csrf(request))
+    args['tasks'] = current_page.page(page_number)
+    args['username'] = auth.get_user(request).username
+    args['all_profiles'] = UserProfile.objects.all()
+    return render_to_response('tasks.html', args)
+    #return render_to_response('tasks.html', {'tasks': current_page.page(page_number), 'username':auth.get_user(request).username, })
 
 def task(request, task_id=1):
     comment_form = CommentForm
@@ -36,6 +45,7 @@ def task(request, task_id=1):
     args['comments'] = Comment.objects.filter(task_id=task_id)
     args['form'] = comment_form
     args['username'] = auth.get_user(request).username
+    args['all_profiles'] = UserProfile.objects.all()
     return render_to_response('task.html', args)
 
 
@@ -45,7 +55,25 @@ def addcomment(request, task_id):
     if form.is_valid():
         comment = form.save(commit=False)
         comment.task = Task.objects.get(id=task_id)
+        comment.user = request.user
         form.save()
     return redirect('/tasks/get/%s' % task_id)
+
+def addtask(request):  
+    task_form = TaskForm
+    args = {}
+    args['task_form'] = task_form
+    args['username'] = auth.get_user(request).username
+    args['all_profiles'] = UserProfile.objects.all()
+    return render_to_response('addtask.html', args)
+
+def addt(request, user_id):
+    form = TaskForm(request.POST) 
+    if form.is_valid():
+        task = form.save(commit=False)
+        task.user = request.user
+        form.save()
+        return redirect('/tasks/%s' % task_id)
+
 
 

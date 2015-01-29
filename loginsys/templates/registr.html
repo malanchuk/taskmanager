@@ -1,0 +1,11 @@
+{% extends 'main.html' %}
+{% block login %}
+	<div class="large-offset-3 large-6 columns" style="border: 2px solid grey; padding: 20px 30px 0 30px; margin-top: 50px; background:#F2F1F0; margin-bottom:202px;">
+		<form action="/auth/register/" method="post">
+			{% csrf_token %}
+			{{ form }}
+
+			<input class="button tiny radius info" type="submit" value="Зарегистрироватся">
+		</form>	
+	</div>
+{% endblock %}		

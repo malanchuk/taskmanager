@@ -3,18 +3,103 @@
 {% load staticfiles %}
 
 {% block task %}
+<div class="row">
+  <div class="small-3 columns" style="border: 2px solid grey; margin-top: 50px; margin-bottom: 50px; padding: 40px; background:#F2F1F0;"><hr>
+		{% for UserProfile in all_profiles %}	
+		<img src="{{ UserProfile.avatar.url }}">
+			<h5><a href="">{{ UserProfile.user }}</a></h5>		
+			{{ UserProfile.job_title }}<br>
+			<a href="/task/add/"><div class="button tiny radius info">Добавить задачу</div></a>
+		<hr>
+		{% endfor %}
+	</div>
+  <div class="small-1 columns" style="border: 0px; padding: 40px;"></div>
+  <div class="small-8 columns" style="border: 2px solid grey; margin-top: 50px; margin-bottom: 50px; padding: 40px; background:#F2F1F0 ">
+  	<table border="0" width="100%" class="table">
+		<tr>
+			<td style="width:400px;">
+				<h3 style="width:400px; float:left">Название задачи:</h3> 
+				<h3 style="color:green">{{ task.name }}</h3>
+			</td>
+		</tr>	
 
-<p>name {{ task.name }}</p>
-<p>avtor {{ task.author }}</p>
-<p>deadline{{ task.deadline }}</p>
-<p>startdate{{ task.start_date }}</p>
+		<tr>
+			<td>
+				<h3 style="width:400px; float:left">Автор задачи:</h3> 
+				<h3 style="color:green">{{ task.author }}</h3>
+			</td>
+		</tr>	
+
+		<tr>
+			<td>
+				<h6 style="width:400px; float:left">Описание задачи:</h6> 
+				<h6 style="color:black">{{ task.description }}</h6>
+			</td>
+		</tr>
+
+	</table>	
+
+	<table table border="0" width="100%" class="table">
+
+		<tr>
+			<td>
+				<h6 style="width:120px; float:left">Дата постановки задачи: </h6> 
+				<h6 style="color:blue; padding-top: 22px">{{ task.date_creation }}</h6>
+			</td>
+
+			<td>
+				<h6 style="width:150px; float:left">Конечный срок здачи:</h6> 
+				<h6 style="color:red; padding-top: 8px">{{ task.deadline }}</h6>
+			</td>
+		</tr>	
 
 
-{% for comment in comments %}
+		<tr>
+			<td>
+				<h6 style="width:120px; float:left">Дата начала выполнения задачи:</h6> 
+				<h6 style="color:blue; padding-top: 32px">{{ task.start_date }}</h6>
+			</td>
+
+			<td>
+				<h6 style="width:120px; float:left">Дата окончания выполнения задачи:</h6> 
+				<h6 style="color:blue; padding-top: 32px">{{ task.end_date }}</h6>
+			</td>
+		</tr>
+
+		<tr>
+			<td>
+				<h6 style="width:150px; float:left">Потраченое время на выполнение задачи:</h6> 
+				<h6 style="color:red; padding-top: 22px">{{ task.estimated_time }}</h6>
+			</td>
+
+				<td>
+					<h6 style="width:150px; float:left">Статус задачи:</h6>  
+					<h6 style="color:red">{{ task.task_status }}</h6>
+				</td>
+		</tr>
+
+		<tr>
+			<td>
+				<h6 style="width:120px; float:left">Приоритет задачи:</h6> 
+				<h6 style="color:blue; padding-top: 8px">{{ task.task_priority }}</h6>
+			</td>
+	
+			<td>
+				<h6 style="width:150px; float:left">Тип задачи:</h6>  
+				<h6 style="color:blue">{{ task.task_type}}</h6>
+			</td>
+		</tr>	
+	
+	</table>
+
+			
+
+
+	 {% for comment in comments %}
 			<table border="0" width="100%" class="table">
 				<tr>
 					<td>
-						<div style="float:left;"> {{ comment.user }} </div> 
+						<div style="float:left;"> <strong>{{ comment.user }}</strong> </div> 
 						<div style="text-align:right; color:blue;"> {{ comment.Date }} </div>
 					</td>
 				</tr>
@@ -25,11 +110,12 @@
 			<hr>
 		{% endfor %}
 
-
+{% if username %}
 <form action="/tasks/addcomment/{{ task.id }}/" method="post">
 {% csrf_token %}
 {{ form }}
-<input type="submit" class="button" value="AddComment">
+<input type="submit" class="button radius info" value="AddComment">
 </form>
+{% endif %}
 {% endblock %}
 
