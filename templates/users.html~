@@ -1,0 +1,14 @@
+
+<div class="small-3 columns" style="border: 3px solid grey; padding: 40px; background:#BBBBBB; text-align:center;">Users, search etc.
+		<hr>
+		{% for profile in all_profiles %}	
+		<img src="{{ profile.avatar.url }}"> <h1>{{ profile.user_id }}</h1>
+		<h5><a href="">{{ profile.user }}</a></h5>  
+		{{ profile.job_title }}
+		
+		<a href="/task/add/{{ profile.user_id }}"><div class="button tiny radius info" style="float:right; ">Поставить задачу</div></a>
+		<hr>
+		{% endfor %}
+		
+	</div>
+

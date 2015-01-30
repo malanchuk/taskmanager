@@ -1,0 +1,78 @@
+Антон привет. Подскажи мне пожалуйста, как лучше сделать.
+Я делаю добавление такска. При такой вьюхе, я должен бывирать task_users:
+
+def addtask(request):
+    args = {}                                             
+    args.update(csrf(request))
+    form = TaskForm(request.POST)
+    if request.POST:         
+        if form.is_valid(): 
+            task = form.save(commit=False)
+            task.task_author_id = request.user.id
+            form.save()
+    return render_to_response('addtask.html', {'form': form}, context_instance=RequestContext(request))
+
+Но мне нужно, чтобы для каждого юзера была кнопка "добавить задачу" и id этого юзера передавалось в task.task_users
+Я сделал так:
+
+def addtask(request, user_id):                         
+    user = get_object_or_404(User, pk=user_id)    
+    form = TaskForm(request.POST)                      
+    if form.is_valid():                                 
+        task = form.save(commit=False)                 
+task.task_users.add(user)
+        task.task_users = user                     
+        task.task_author_id = request.user.id
+        form.save()
+    return render_to_response('addtask.html', {'form': form}, context_instance=RequestContext(request))
+в темплейте:
+<a href="/task/add/{{ profile.user_id }}"><div class="button">Поставить задачу</div></a>
+юрл:
+url(r'^task/add/(?P<user_id>\d+)/$', 'task.views.addtask', name='addtask'),
+форма:
+<form action="/task/add/{{ user.id }}/" method="post"> 
+
+При таком коде, когда я перехожу на a href="/task/add/{{ profile.user_id }}", у меня разлогинивается. 
+Для теста я добавил полое author_id, задача создалась, но поле task.task_users осталось пустым.
+Посоветуй, как будет правильно?(не считая, что ссылки так писать нельзя))
+
+''''
+   # profile = get_object_or_404(Profile, pk=user_id)   # при надатии на "фддтаск" во вьюху должен передаватся юзер айди
+    if request.POST:         
+        if form.is_valid(): 
+            taskl = form.save(commit=False)
+         #   task.task_author_id = request.user.id
+            task.task_users = Task.objects.filter(task_users=user_id)
+          #  task.task_users = profile
+            #response.set_cookie(user_id, "user_id")
+            form.save()
+    return render_to_response('addtask.html', {'form': form}, context_instance=RequestContext(request))'''
+"""
+
+    <a href="/task/add/{{ profile.user_id }}"><div class="button tiny radius info" style="float:right; ">Поставить задачу</div></a>
+  url(r'^task/add/(?P<user_id>\d+)/$', 'task.views.addtask', name='addtask'),
+
+        <form action="/task/add/{{ user.id }}/" method="post"> """
+
+Похоже, что не сработало:
+
+ValueError at /task/add/1/
+"<Task: Task 12>" needs to have a value for field "task" before this many-to-many relationship can be used.
+
+вьюха:
+
+def addtask(request, user_id):
+    user = get_object_or_404(User, pk=user_id)
+    form = TaskForm(request.POST)
+    args = {}                                             # создаём словарь
+    args.update(csrf(request))    
+    args['username'] = auth.get_user(request).username    # получить имя пользователя username из request, и если оно получено, то это имя присваивается к переменной username
+    args['all_profiles'] = Profile.objects.all()
+    args['form'] = form   
+    if request.POST:         
+        if form.is_valid(): 
+            task = form.save(commit=False)
+            task.task_users.add(user)
+            task.task_author_id = request.user.id
+            form.save()
+    return render_to_response('addtask.html', args, context_instance=RequestContext(request))

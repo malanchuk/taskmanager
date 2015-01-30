@@ -5,30 +5,37 @@
 <head style="background:#525254">
 	<title>PyTask</title>
 	<link rel="stylesheet" type="text/css" href="{% static "static/css/foundation.css" %}">
+	<script src="{% static "static/js/startTime.js" %}"></script>	
 </head>
+<body onload="startTime()" style="background:#525254; height:100%;">
 
-<body style="background:#525254; height:100%;">
 	<div class="top-bar" style="padding-bottom:45px;">
-		<h3 style="float:left; margin-left:30px;"><a href="/">PyTask</a></h3>
-		<section class="top-bar-section" style="float:right;">		
-			<ul class="right">
-				{% if username %}  <!-- если в шаблон передано имя пользователя -->
-					<li><a href="/auth/logout/">Выйти ({{ username }})</a></li> 
-				{% else %}
-					<li><a href="/auth/login/">Войти</a></li> 
-				{% endif %}
-			</ul>
-		</section>
+		<div style="width:100%; height:1px; clear:both;">.
+			<h3 style="margin-left:30px; float:left;"><a href="/">PyTask</a></h3> 				
+			<section class="top-bar-section" style="float:right; width:10%;">		
+				<ul class="right">
+					{% if username %}  <!-- если в шаблон передано имя пользователя -->
+						<li><a href="/auth/logout/">Выйти ({{ username }})</a></li> 
+					{% else %}
+						<li><a href="/auth/login/">Войти</a></li> 
+					{% endif %}
+				</ul>
+			</section>	
+			<h6 id="txt" style="color:#AFAFAF; float:right; padding:8px 15px 0 30px;"></h6>		
+		</div>
 	</div>
-
-	<div class="row" style="padding-top:60px;">
+	
+	<div style="padding-top:60px;">
+		{% block users %}{% endblock %}
 		{% block task %}{% endblock %}
 		{% block login %}{% endblock %}
-	</div>
+		{% block addtask %}{% endblock %}
+		{% block task_list %}{% endblock %}	
+</div>
 
 	<!-- Start Footer -->
 	<div class="large-12 columns" style="# height:50px; line-height:50px; color:grey; background-color:#333333; text-align:right; width:100%; margin-top:50px;">		
-		&copy; 2015 maximkalga@gmail.com
+		&copy; 2015 maximkalga@gmail.com 
 	</div>
 	<!-- End Footer -->
 	

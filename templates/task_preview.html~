@@ -1,0 +1,20 @@
+{% for task in tasks %}		
+			<table style="border: 0px solid black; width:100%;">
+			    <tr>
+			        <td> 
+						<div style="float:left;">Ответственный:</div>
+						<div style="text-align:right;">{{ task.task_startdate }}</div>
+						<div style="float:left;"><h4 style="color:green; float:left;">| {% for u in task.task_users.all %} {{ u }} | {% endfor %} </h4></div>
+						<div style="text-align:right;"><h6 style="color:#6B7581">{{ task.task_status }}</h6></div>
+						</br>
+						<div><h4><a href="/tasks/get/{{ task.id }}/">{{ task.task_name }}</a></h4></div>
+					</td>
+			    </tr>
+			    <tr>
+			        <td>			        	
+				        <h6 style="text-align:right;"><a href="{% url 'task detail' task.id %}">(Подробнее...)</a></h6>
+					</td>
+			    </tr>
+			</table>
+			<hr>
+		{% endfor %}

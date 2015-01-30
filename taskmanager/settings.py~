@@ -26,10 +26,12 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
-TEMPLATE_DIRS = (
-    '/home/maxim/taskmanager/templates',
-    '/home/maxim/taskmanager/loginsys/templates',
-)
+#TEMPLATE_DIRS = (
+#    '/home/maxim/taskmanager/templates',
+#    '/home/maxim/taskmanager/loginsys/templates',
+#)
+
+TEMPLATE_LOADERS = 'django.template.loaders.app_directories.Loader'
 
 # Application definition
 
@@ -98,7 +100,7 @@ STATIC_URL = '/static/'
 
 MEDIA_ROOT = '/home/maxim/taskmanager/media'
 
-MEDIA_URL = 'http://127.0.0.1:8000/media/'
+MEDIA_URL = '/media/'
 
 STATICFILES_DIRS = (
     ('static', '/home/maxim/taskmanager/static'),

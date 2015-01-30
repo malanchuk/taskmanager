@@ -31,6 +31,8 @@ TEMPLATE_DIRS = (
     '/home/maxim/taskmanager/loginsys/templates',
 )
 
+# TEMPLATE_LOADERS = 'django.template.loaders.app_directories.Loader'
+
 # Application definition
 
 INSTALLED_APPS = (

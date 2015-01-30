@@ -14,12 +14,16 @@ class CommentForm(ModelForm):
 class TaskForm(ModelForm):
 	class Meta:
 		model = Task
-		fields = [ 
-				 'task_users', 
-				 'task_author',
-				 'task_name',
-				 'task_description',  
-				 'task_type',
-				 'task_status', 
-				 'task_priority'
+		fields = [
+				    'task_users',
+				    'task_name',			    
+				    'task_description',			     
+				    'task_deadline',
+				    'task_date', 				     
+				    'task_enddate', 
+				    'task_estimatedtime', 
+				    'task_type', 
+				    'task_status', 
+				    'task_priority',  				 
 				 ] # перечисление отображаемых полей
+

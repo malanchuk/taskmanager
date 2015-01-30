@@ -1,30 +1,26 @@
 # -*- coding: utf8 -*-
 
-from django.shortcuts import render
-from django.http.response import HttpResponse, Http404    # импорт ответов браузера
-from django.template.loader import get_template
-from django.template import Context
+#from django.shortcuts import render
+#from django.http.response import HttpResponse   # импорт ответов браузера
+#from django.template.loader import get_template
+from django.template import RequestContext
 from django.shortcuts import render_to_response, redirect
 from task.models import Task, Comment, Profile            # импорт моделей для работы с базой данных
-from django.core.exceptions import ObjectDoesNotExist
+#from django.core.exceptions import ObjectDoesNotExist
 from forms import CommentForm, TaskForm                   # форма комментирования
 from django.core.context_processors import csrf           # csrf - вид хакерской атаки
 from django.core.paginator import Paginator               # модуль пагинации
 from django.contrib import auth                           # auth - модуль для работы с пользователями
-from django.contrib.auth.decorators import login_required # декоратор, позволяющий выполнять действия только залогиненым пользователям
+#from django.contrib.auth.decorators import login_required # декоратор, позволяющий выполнять действия только залогиненым пользователям
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
 
 def tasks(request, page_number=1):                        # дефолтное значение page_number=1
-    all_tasks = Task.objects.order_by('-task_startdate').all()   
-                        # переменной all_articles передаём все статьи(но Джанго будет обрабатывать и вызывать их не все сразу, а только то количество, которое запрашивает Пагинатор, чтобы не нагружать базу)
+    all_tasks = Task.objects.order_by('-task_startdate').all()    # переменной all_articles передаём все статьи(но Джанго будет обрабатывать и вызывать их не все сразу, а только то количество, которое запрашивает Пагинатор, чтобы не нагружать базу)                       
     current_page = Paginator(all_tasks, 10)               # Модуль Paginator принимает all_articles. Создаём модель пагинации - базовая страница current_page будет содержать 2 статьи
-  # order = Task.objects.order_by(‘-task_startdate’)[:5]
-  # output = ', '.join([p.task_text for p in order])
     return render_to_response('tasks.html', 
         {'tasks': current_page.page(page_number), 
-        'username': auth.get_user(request).username,
-        'all_users': User.objects.all(),
+        'username': auth.get_user(request).username,      
         'all_profiles': Profile.objects.all(),
         })
 
@@ -56,13 +52,36 @@ def addcomment(request, task_id):                         # добавление
         form.save()
     return redirect('/tasks/get/%s' % task_id) 
 
-"""
-def user_tasks_list(request, user_id):
-    args = {}                                             # создание нового пустого словаря
-    args.update(csrf(request)) 
-    args['all_users'] = User.objects.get(id=user_id)                           # создаёт проверку вводимого текста в форму(защита) и добавляет ее в словарь
-    args['tasks'] = Task.objects.filter(task_users=user_id) 
+
+def addtask(request, user_id):
+    user = get_object_or_404(User, pk=user_id)
+    form = TaskForm(request.POST)
+    args = {}                                             # создаём словарь
+    args.update(csrf(request))    
+    args['username'] = auth.get_user(request).username    # получить имя пользователя username из request, и если оно получено, то это имя присваивается к переменной username
     args['all_profiles'] = Profile.objects.all()
-    
-    return render_to_response('user.html', args)    
-"""
+    args['form'] = form   
+    if request.POST:         
+        if form.is_valid(): 
+            task = form.save(commit=False)
+            task.task_author_id = request.user.id
+            form.save()
+    return render_to_response('addtask.html', args, context_instance=RequestContext(request))
+        
+        
+
+
+def task_list(request, user_id):
+    user = request.POST.get('user_id')
+    this_user = User.objects.filter(id=user)
+    user_id = get_object_or_404(User, pk=user_id)
+    args = {}                                          
+    args.update(csrf(request)) 
+    args['username'] = auth.get_user(request).username
+    args['all_profiles'] = Profile.objects.all()
+    args['tasks'] = Task.objects.filter(task_users=user_id) # сам не понял, как я это сделал, но оно работает)
+    return render_to_response('task_list.html', args)         
+
+
+
+

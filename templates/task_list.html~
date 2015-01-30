@@ -1,0 +1,6 @@
+{% extends 'main.html' %} <!-- этот шаблон наследуется от main.html -->
+{% load staticfiles %} <!-- для работы со статичными файлами -->
+
+{% block task_list %}
+wdcwecw
+{% endblock %}

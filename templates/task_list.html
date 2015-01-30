@@ -1,0 +1,11 @@
+{% extends 'main.html' %} <!-- этот шаблон наследуется от main.html -->
+{% load staticfiles %} <!-- для работы со статичными файлами -->
+
+{% block task_list %}
+<div class="row">
+{% include 'users.html' %}
+{% include 'task_preview.html' %}
+{{ user.id }}
+	</div>
+<a href="" style="float:left; margin:20px 0 0 150px; color:#F2F1F0;">Вверх ▲</a>
+{% endblock %}

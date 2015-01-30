@@ -36,9 +36,9 @@ TASK_PRIORITY_CHOICES = (
  
   
 class Profile(models.Model):
-    user   = models.OneToOneField(User)
-    avatar = models.ImageField(u'avatar', max_length=1000)
-    job_title = models.CharField(max_length=100)
+    user = models.OneToOneField(User)
+    avatar = models.ImageField(u'avatar', max_length=100, default='/media/12345.jpg')
+    job_title = models.CharField(max_length=25)
     
     def __unicode__(self):
         return self.user.username
@@ -50,12 +50,12 @@ class Task(models.Model):
 	task_users = models.ManyToManyField(User, related_name='user')
 	task_author = models.ForeignKey(User, related_name='user1')    
 	task_name = models.CharField(max_length=255)
-	task_description = RichTextField()
+	task_description = RichTextField(blank=True, null=True)
 	task_deadline = models.DateTimeField(u'Deadline', blank=True, null=True)
-	task_startdate = models.DateTimeField(u'Start date', auto_now=True)
+	task_startdate = models.DateTimeField(u'Creation date', auto_now=True)
+	task_date = models.DateTimeField(u'Start date', blank=True, null=True)
 	task_enddate = models.DateTimeField(u'End date', blank=True, null=True)
 	task_estimatedtime = models.DateTimeField(u'Estimated time', blank=True, null=True)
-  # task_pubdate = models.DateTimeField(u'Published date', auto_now=True)
 	task_type = models.CharField(max_length=10,
 	                             choices=TASK_TYPE_CHOICES,
 	                             default=TASK)

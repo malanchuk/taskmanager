@@ -1,0 +1,21 @@
+
+<div class="small-3 columns" style="border: 3px solid grey; padding: 22px; background:#BBBBBB; text-align:center;">Users, search etc.
+		<hr>
+		
+		{% for profile in all_profiles %}	
+		<div style="background:#F2F1F0; padding:10px; height:135px; border: 2px solid grey; margin-bottom:20px;">
+		<div><img src="{{ profile.avatar.url }}" style="width:72px; height:72px; float:left; border: 2px solid grey;"> </img></div>
+		<h5><a href="/task/user/{{ profile.user_id }}" style="color:#003166">{{ profile.user }}</a></h5>  		
+		<a href="/task/add/{{ profile.user_id }}">
+		<div class="button tiny radius info" style="float:right;">Add task</div>
+		</a>
+		<h6 style="float:left; color:#333333;">{{ profile.job_title }}</h6>
+		
+	</div>
+			
+			
+		{% endfor %}
+
+		
+	</div>
+
