@@ -5,12 +5,13 @@
 <div class="row">
 {% include 'users.html' %}
 <div class="small-9 columns" style="border: 3px solid grey; padding: 40px; background:#F2F1F0">
-			<form action="/task/add/{{ user.id }}/" method="post"> 
+			<form action="" method="post"> 
 			<!-- method="post" безопасен, т.к. не отображает запрос в строке браузера -->
 			{% csrf_token %} <!-- защита - token, передаётся после тега form-->
 			{{ form }} <!-- переменная -->
-			 <a href="/"><input type="submit" class="button info radius tiny" value="Добавить "></a>
-</div></div>
+			 <a href="/tasks/get/{{ task.id }}"><input type="submit" class="button info radius tiny" value="Добавить "></a>
+</div>
+</div>
 <a href="" style="float:left; padding:20px 0 0 150px; color:#F2F1F0;">Вверх ▲</a>
 
 {% endblock %}

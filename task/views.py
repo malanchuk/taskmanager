@@ -78,10 +78,20 @@ def task_list(request, user_id):
     args = {}                                          
     args.update(csrf(request)) 
     args['username'] = auth.get_user(request).username
-    args['all_profiles'] = Profile.objects.all()
+    args['all_profiles'] = Profile.objects.filter(user_id=user_id)
     args['tasks'] = Task.objects.filter(task_users=user_id) # сам не понял, как я это сделал, но оно работает)
     return render_to_response('task_list.html', args)         
 
 
 
 
+def task_list2(request, user_id):
+    user = request.POST.get('user_id')
+    this_user = User.objects.filter(id=user)
+    user_id = get_object_or_404(User, pk=user_id)
+    args = {}                                          
+    args.update(csrf(request)) 
+    args['username'] = auth.get_user(request).username
+    args['all_profiles'] = Profile.objects.filter(user_id=user_id)
+    args['tasks'] = Task.objects.filter(task_author_id=user_id) # сам не понял, как я это сделал, но оно работает)
+    return render_to_response('task_list2.html', args)         

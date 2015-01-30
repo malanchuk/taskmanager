@@ -15,14 +15,19 @@
 		<table border="0" width="100%" class="table">
 			<tr>
 				<td style="width:400px;">
-					<h4 style="width:300px; float:left"> Задачу поставил: </h4>
-					<h4 style="color:#003166"> {{ task.task_author }} </h4> 
+					<h4 style="width:300px; float:left;"> Задачу поставил: </h4>
+					<h4 style="color:#003166; float:left;"> 
+						<div style="background:#D9F6FC; width:100px; border: 1px solid #BBBBBB; text-align: center;"> <a href="/task/author_tasks/{{ task.task_author.id }}"> 
+						{{ task.task_author }} </a> </div> </h4> 
 				</td>
 			</tr>
 			<tr>
 				<td>
-					<h4 style="width:300px; float:left"> Ответственный: </h4>
-					<h4 style="color:#003166"> | {% for u in task.task_users.all %} {{ u }} | {% endfor %} </h4> 
+					<h4 style="width:300px; height:70px; float:left; padding-top:5px;"> Ответственный: </h4>
+					<h4 style="color:#003166;"> {% for u in task.task_users.all %} 
+						<div style="background:#D9F6FC; width:100px; border: 1px solid #BBBBBB; text-align: center;  float:left; margin-right:3px;"> <a href="/task/users_tasks/{{ u.id }}"> {{ u }} </a>
+						</div>
+							{% endfor %} </h4> 
 				</td>
 			</tr>
 		</table> 

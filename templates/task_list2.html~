@@ -2,10 +2,12 @@
 {% load staticfiles %} <!-- для работы со статичными файлами -->
 
 {% block task_list %}
-<div class="row">{{ profile.user }}
+<div class="row">
+<h4 style="padding-left:550px; color:#F2F1F0;"> Поставил:</h4>
 {% include 'users.html' %}
+
 {% include 'task_preview.html' %}
-	</div>
+{{ user.id }}
 	</div>
 <a href="" style="float:left; margin:20px 0 0 150px; color:#F2F1F0;">Вверх ▲</a>
 {% endblock %}

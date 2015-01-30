@@ -1,0 +1,30 @@
+<div class="large-6 large-offset-4 columns"> 
+				<ul class="pagination">
+					{% if tasks.has_previous %} <!-- has_previous - булевое значение(True). Если есть предыдущая страница, то -->
+						<li class="arrow"><a href="/page/{{ tasks.previous_page_number }}/">&laquo;</a></li> <!-- при нажатии на стрелочку переход на следущую страницу -->
+					{% else %}
+						<li class="arrow unavailable"><a href="">&laquo;</a></li> <!-- делает стрелочку неактивной -->
+					{% endif %}
+
+					<!--  нумерация страниц -->
+
+					{% for page in tasks.paginator.page_range %} <!-- итерация по страницам -->
+						{% if page == tasks.number %} <!-- если текущая страница равна номеру страницы(активна) -->
+							<li class="current"><a href="/page/{{ page }}/">{{ page }}</a></li> <!-- тогда цифре в пагинации присваиваем стиль current - текущая страницы -->
+						{% else %}
+							<li><a href="/page/{{ page }}/">{{ page }}</a></li>
+						{% endif %}
+					{% endfor %}
+
+					<!-- нумерация страниц (конец) -->
+
+					{% if tasks.has_next %}
+						<li class="arrow"><a href="{% url 'pagination' tasks.next_page_number %}">&raquo;</a></li>
+					{% else %}
+						<li class="arrow unavailable"><a href="">&raquo;</a></li>
+					{% endif %}
+				</ul>
+			
+		</div>	
+		</div>
+
