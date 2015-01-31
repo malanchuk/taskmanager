@@ -1,0 +1,13 @@
+<div class="small-3 columns" style="border: 2px solid grey; margin-top: 50px; margin-bottom: 50px; padding: 19px; background:#F2F1F0;">
+	
+	<hr>
+		{% for UserProfile in all_profiles %}	
+
+			<div><img src="{{ UserProfile.avatar.url }}" style="width: 84px; height: 121px; float:left; border: 2px solid blue;"/></div>
+				<h5 style="font-size: 30px; margin-left: 90px;"><a href="">{{ UserProfile.user }}</a></h5>			
+				<a href="addtask/{{ UserProfile.user_id }}/"><div class="button tiny radius info" style="float:right; margin-right: -5px">Поставить задачу</div></a>
+				<div  style="font-size: 16px; float:left"><h5>{{ UserProfile.job_title }}</h5></div>
+				<hr>
+				{% endfor %}	
+				
+</div>

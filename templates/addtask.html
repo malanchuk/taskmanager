@@ -3,8 +3,10 @@
 {% load staticfiles %}
 
 {% block task %}
-
+<form action="" method="post">
+{% csrf_token %}	
 {{ task_form }}
-<a href="/task/add/add/"><div class="button tiny radius info">Добавить задачу</div></a>
+<input type="submit" class="button radius info" value="Поставить задачу">
+</form>
 
 {% endblock %}

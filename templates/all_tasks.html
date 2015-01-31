@@ -1,0 +1,20 @@
+<div class="small-8 columns" style="border: 2px solid grey; margin-top: 50px; margin-bottom: 50px; padding: 40px; background:#F2F1F0 ">
+		{% for task in tasks %}		
+			<table style="border: 0px solid black; width:100%;">
+			    <tr>
+			        <td>
+						<h6 style="float:left"> Дата постановки задачи: {{ task.date_creatio }}</h6>
+						<h6 style="text-align:right; color:#6B7581">Статус задачи: {{ task.task_status }}</h6>
+						<h2><a href="/tasks/get/{{ task.id }}/">Название задачи: {{ task.name }} </a></h2>
+						<h3>Ответственный: {% for u in task.users.all %} {{ u }} {% endfor %} </h3>
+						<h3>Описание задачи: {{ task.description }}</h3>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<h6 style="text-align:right;"><a href="{% url 'task detail' task.id %}">(Подробнее...)</a></h6>
+					</td>
+				</tr>		   
+			</table>
+		{% endfor %}
+		

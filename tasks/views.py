@@ -6,6 +6,7 @@ from forms import CommentForm, TaskForm
 from django.core.context_processors import csrf
 from django.contrib import auth
 from django.core.paginator import Paginator
+from django.contrib.auth.models import User
 # Create your views here.
 
 
@@ -28,7 +29,7 @@ from django.core.paginator import Paginator
 
 def tasks(request, page_number=1):
     all_tasks = Task.objects.order_by('-start_date').all()
-    current_page = Paginator(all_tasks, 1) 
+    current_page = Paginator(all_tasks, 10) 
     args = {}
     args.update(csrf(request))
     args['tasks'] = current_page.page(page_number)
@@ -59,21 +60,17 @@ def addcomment(request, task_id):
         form.save()
     return redirect('/tasks/get/%s' % task_id)
 
-def addtask(request):  
-    task_form = TaskForm
+def addtask(request, user_id): 
+    user = get_object_or_404(User, pk=user_id) 
+    task_form = TaskForm(request.POST)
     args = {}
+    args.update(csrf(request))
     args['task_form'] = task_form
     args['username'] = auth.get_user(request).username
     args['all_profiles'] = UserProfile.objects.all()
-    return render_to_response('addtask.html', args)
-
-def addt(request, user_id):
-    form = TaskForm(request.POST) 
-    if form.is_valid():
-        task = form.save(commit=False)
-        task.user = request.user
-        form.save()
-        return redirect('/tasks/%s' % task_id)
-
-
+    if task_form.is_valid():
+        task = task_form.save(commit=False)
+        task.author_id = request.user.id
+        task_form.save()
+    return render_to_response('addtask.html', args, context_instance=RequestContext(request))
 
