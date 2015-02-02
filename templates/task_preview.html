@@ -3,11 +3,17 @@
 			<tr style="text-align:center;">
 				<td style="background:#C9DAF8; width:20%;">Сортировать по:				
 				</td>
-				<td style="text-align:center; background:#F2F1F0; width:20%;"><a href="">Статусу ⇳</a>				
+				<td style="text-align:left; background:#F2F1F0; width:20%;">Статусу
+				<a href="{% url 'tasks_sorted_by_status_down' %}" style="float:right;">▼</a>
+				<a href="{% url 'tasks_sorted_by_status_up' %}" style="float:right;">▲</a>
+				</a>				
 				</td>
-				<td style="text-align:center; background:#F2F1F0; width:20%;"><a href="">Приоритету ⇳</a>				
+				<td style="text-align:left; background:#F2F1F0; width:20%;">Приоритету
+				<a href="{% url 'tasks_sorted_by_priority_down' %}" style="float:right;">▼</a>
+				<a href="{% url 'tasks_sorted_by_priority_up' %}" style="float:right;">▲</a>
+								
 				</td>
-				<td style="text-align:center; background:#F2F1F0; width:20%;"><a href="">Дедлайну ⇳</a>				
+				<td style="text-align:center; background:#F2F1F0; width:20%;"><a href="{% url 'tasks_sorted_by_status_down' %}">Дедлайну ⇳</a>				
 				</td>	
 				<td style="text-align:center; background:#F2F1F0; width:20%;"><a href="">Типу ⇳</a>				
 				</td>			
@@ -26,7 +32,7 @@
 						</div>
 							 {% endfor %} </h4>
 						</div>
-						<div style="text-align:right;"><h6 style="color:#6B7581; height:35px;">{{ task.task_status }}</h6></div>
+						<div style="text-align:right;"><h6 style="color:#6B7581; height:35px;">{{ task.task_priority }} | {{ task.task_status }}</h6></div>
 						</br></br>
 						<div style="float:left;"><h4 style="color:#525254">Задача: <a href="/tasks/get/{{ task.id }}/">{{ task.task_name }}</a></h4></div>
 					</td>

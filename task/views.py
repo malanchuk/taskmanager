@@ -71,7 +71,7 @@ def addtask(request, user_id):
         
 
 
-def task_list(request, user_id):
+def task_list_users(request, user_id):
     user = request.POST.get('user_id')
     this_user = User.objects.filter(id=user)
     user_id = get_object_or_404(User, pk=user_id)
@@ -80,12 +80,12 @@ def task_list(request, user_id):
     args['username'] = auth.get_user(request).username
     args['all_profiles'] = Profile.objects.filter(user_id=user_id)
     args['tasks'] = Task.objects.filter(task_users=user_id) # сам не понял, как я это сделал, но оно работает)
-    return render_to_response('task_list.html', args)         
+    return render_to_response('task list users.html', args)         
 
 
 
 
-def task_list2(request, user_id):
+def task_list_author(request, user_id):
     user = request.POST.get('user_id')
     this_user = User.objects.filter(id=user)
     user_id = get_object_or_404(User, pk=user_id)
@@ -94,4 +94,30 @@ def task_list2(request, user_id):
     args['username'] = auth.get_user(request).username
     args['all_profiles'] = Profile.objects.filter(user_id=user_id)
     args['tasks'] = Task.objects.filter(task_author_id=user_id) # сам не понял, как я это сделал, но оно работает)
-    return render_to_response('task_list2.html', args)         
+    return render_to_response('task list users.html', args)         
+
+
+
+def tasks_sorted_by_status_up(request, page_number=1):                        
+    all_tasks = Task.objects.order_by('-task_status').all()                           
+    current_page = Paginator(all_tasks, 100)               
+    return render_to_response('tasks.html', 
+        {'tasks': current_page.page(page_number)})
+
+def tasks_sorted_by_status_down(request, page_number=1):                        # дефолтное значение page_number=1
+    all_tasks = Task.objects.order_by('task_status').all()    # переменной all_articles передаём все статьи(но Джанго будет обрабатывать и вызывать их не все сразу, а только то количество, которое запрашивает Пагинатор, чтобы не нагружать базу)                       
+    current_page = Paginator(all_tasks, 100)               # Модуль Paginator принимает all_articles. Создаём модель пагинации - базовая страница current_page будет содержать 2 статьи
+    return render_to_response('tasks.html', 
+        {'tasks': current_page.page(page_number)})
+
+def tasks_sorted_by_priority_up(request, page_number=1):                        # дефолтное значение page_number=1
+    all_tasks = Task.objects.order_by('-task_priority').all()    # переменной all_articles передаём все статьи(но Джанго будет обрабатывать и вызывать их не все сразу, а только то количество, которое запрашивает Пагинатор, чтобы не нагружать базу)                       
+    current_page = Paginator(all_tasks, 100)               # Модуль Paginator принимает all_articles. Создаём модель пагинации - базовая страница current_page будет содержать 2 статьи
+    return render_to_response('tasks.html', 
+        {'tasks': current_page.page(page_number)})
+
+def tasks_sorted_by_priority_down(request, page_number=1):                        # дефолтное значение page_number=1
+    all_tasks = Task.objects.order_by('task_priority').all()    # переменной all_articles передаём все статьи(но Джанго будет обрабатывать и вызывать их не все сразу, а только то количество, которое запрашивает Пагинатор, чтобы не нагружать базу)                       
+    current_page = Paginator(all_tasks, 100)               # Модуль Paginator принимает all_articles. Создаём модель пагинации - базовая страница current_page будет содержать 2 статьи
+    return render_to_response('tasks.html', 
+        {'tasks': current_page.page(page_number)})
