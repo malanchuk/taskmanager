@@ -5,9 +5,14 @@
 
 			<div><img src="{{ UserProfile.avatar.url }}" style="width: 84px; height: 121px; float:left; border: 2px solid blue;"/></div>
 				<h5 style="font-size: 30px; margin-left: 90px;"><a href="">{{ UserProfile.user }}</a></h5>			
-				<a href="addtask/{{ UserProfile.user_id }}/"><div class="button tiny radius info" style="float:right; margin-right: -5px">Поставить задачу</div></a>
+				<div style="float:left; margin-left: 8px; margin-top: -3px"><a href="/tasks/set/{{ UserProfile.user_id }}/">Поставил</a></div>
+				<div style="float:left; margin-left: 8px; margin-top: 10px"><a href="/tasks/performs/{{ UserProfile.user_id }}/">Выполняет</a></div>
 				<div  style="font-size: 16px; float:left"><h5>{{ UserProfile.job_title }}</h5></div>
+				
+				<a href="/tasks/addtask/{{ UserProfile.user_id }}/"><div class="button tiny radius info" style="font-size: 15px; float:left">Поставить задачу</div></a>
 				<hr>
 				{% endfor %}	
+
+				<!--tasks/addtask/{{ UserProfile.user_id }} -->
 				
 </div>

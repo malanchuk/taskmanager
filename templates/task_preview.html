@@ -1,3 +1,4 @@
+
 <div class="small-8 columns" style="border: 2px solid grey; margin-top: 50px; margin-bottom: 50px; padding: 40px; background:#F2F1F0 ">
 		{% for task in tasks %}		
 			<table style="border: 0px solid black; width:100%;">
@@ -12,9 +13,11 @@
 				</tr>
 				<tr>
 					<td>
-						<h6 style="text-align:right;"><a href="/{% url 'task detail' task.id %}/">(Подробнее...)</a></h6>
+						<h6 style="text-align:right;"><a href="{% url 'task detail' task.id %}">(Подробнее...)</a></h6>
 					</td>
 				</tr>		   
 			</table>
-		{% endfor %}
-		
+		{% endfor %}		
+
+
+  

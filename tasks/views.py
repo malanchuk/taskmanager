@@ -74,3 +74,26 @@ def addtask(request, user_id):
         task_form.save()
     return render_to_response('addtask.html', args, context_instance=RequestContext(request))
 
+
+def performs(request, user_id):
+    user = request.POST.get('user_id')
+    this_user = User.objects.filter(id=user)
+    args = {}
+    args['username'] = auth.get_user(request).username
+    args['all_profiles'] = UserProfile.objects.filter(user_id=user_id)
+    args['tasks'] = Task.objects.filter(users=user_id)
+    return render_to_response('performstasks.html', args)
+
+
+def set(request, user_id):
+    user = request.POST.get('user_id')
+    this_user = User.objects.filter(id=user)
+    args = {}
+    args['username'] = auth.get_user(request).username
+    args['all_profiles'] = UserProfile.objects.filter(user_id=user_id)
+    args['tasks'] = Task.objects.filter(author_id=user_id)
+    return render_to_response('settasks.html', args)    
+  
+
+
+

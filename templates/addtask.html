@@ -3,10 +3,18 @@
 {% load staticfiles %}
 
 {% block task %}
-<form action="" method="post">
-{% csrf_token %}	
-{{ task_form }}
-<input type="submit" class="button radius info" value="Поставить задачу">
-</form>
+<div class="row">
+	{% include 'users.html' %}
+
+	<div class="small-1 columns" style="border: 0px; padding: 40px;"></div>
+
+	<div class="small-8 columns" style="border: 2px solid grey; margin-top: 50px; margin-bottom: 50px; padding: 40px; background:#F2F1F0 ">
+		<form action="" method="post">
+		{% csrf_token %}	
+		{{ task_form }}
+		<input type="submit" class="button radius info" value="Поставить задачу">
+		</form>
+	</div>	
+<div>
 
 {% endblock %}
